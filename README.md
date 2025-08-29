@@ -1,0 +1,1 @@
+# RFM-Segmentations-using-SQL-and-Power-BI
