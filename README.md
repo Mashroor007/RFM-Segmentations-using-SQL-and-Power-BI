@@ -21,9 +21,13 @@ The goal is to classify customers into meaningful segments and extract actionabl
 ```sql
 CREATE DATABASE RFM_SALES;
 USE RFM_SALES;
-
+```
+**Import Data**
+## 1.Sample Data
+```sql
 SELECT * FROM sample_sales_data LIMIT 5;
-
+```
+## output
 | OrderNo | QuantityOrdered | PriceEach | Sales   | OrderDate | Status  | Month | Year | ProductLine | CustomerName             | City          | Country | DealSize |
 | ------- | --------------- | --------- | ------- | --------- | ------- | ----- | ---- | ----------- | ------------------------ | ------------- | ------- | -------- |
 | 10107   | 30              | 95.7      | 2871    | 24/2/03   | Shipped | 2     | 2003 | Motorcycles | Land of Toys Inc.        | NYC           | USA     | Small    |
@@ -32,6 +36,9 @@ SELECT * FROM sample_sales_data LIMIT 5;
 | 10145   | 45              | 83.26     | 3746.7  | 25/8/03   | Shipped | 8     | 2003 | Motorcycles | Toys4GrownUps.com        | Pasadena      | USA     | Medium   |
 | 10159   | 49              | 100       | 5205.27 | 10/10/03  | Shipped | 10    | 2003 | Motorcycles | Corporate Gift Ideas Co. | San Francisco | USA     | Medium   |
 
+## 2.Customer-Level Metrics Query
+
+```sql
 SELECT 
     CUSTOMERNAME,
     ROUND(SUM(SALES),0) AS CLV,
@@ -45,7 +52,9 @@ SELECT
 FROM SAMPLE_SALES_DATA
 GROUP BY CUSTOMERNAME
 LIMIT 5;
+```
 
+## Output:
 | CustomerName                 | CLV     | Frequency | Total\_Qty\_Ordered | Last\_Transaction\_Date | Recency |
 | ---------------------------- | ------- | --------- | ------------------- | ----------------------- | ------- |
 | Alpha Cognac                 | 140,977 | 3         | 1374                | 2005-03-28              | 64      |
@@ -54,6 +63,8 @@ LIMIT 5;
 | Atelier graphique            | 48,360  | 3         | 540                 | 2004-11-25              | 187     |
 | Australian Collectables, Ltd | 129,183 | 3         | 1410                | 2005-05-09              | 22      |
 
+## 3.Creating View For Segmentation 
+```sql
 CREATE VIEW RFM_SEGMENTATION_DATA AS
 WITH CLV AS 
 (
@@ -108,9 +119,11 @@ SELECT
         ELSE "Other"
     END AS CUSTOMER_SEGMENT
 FROM RFM_COMBINATION RC;
-
+```
+## 4.Final Segmentation
+```sql
 SELECT * FROM RFM_SEGMENTATION_DATA LIMIT 5;
-
+```
 
 | CustomerName            | Recency | Frequency | MonetaryValue | R\_Score | F\_Score | M\_Score | Segment   |
 | ----------------------- | ------- | --------- | ------------- | -------- | -------- | -------- | --------- |
@@ -120,6 +133,10 @@ SELECT * FROM RFM_SEGMENTATION_DATA LIMIT 5;
 | Microscale Inc.         | 209     | 2         | 66,290        | 2        | 1        | 1        | Champions |
 | Royale Belge            | 141     | 4         | 66,880        | 4        | 5        | 1        | Champions |
 
+## 5.Final RFM
+
+```sql
+
 SELECT
     CUSTOMER_SEGMENT,
     SUM(MONETARY_VALUE) AS TOTAL_SPENDING,
@@ -128,6 +145,9 @@ SELECT
     SUM(TOTAL_QTY_ORDERED) AS TOTAL_QTY
 FROM RFM_SEGMENTATION_DATA
 GROUP BY CUSTOMER_SEGMENT;
+```
+
+## Output:
 
 | Customer Segment    | Total Spending | Avg Spending | Total Orders | Total Qty Ordered |
 | ------------------- | -------------- | ------------ | ------------ | ----------------- |
@@ -140,32 +160,29 @@ GROUP BY CUSTOMER_SEGMENT;
 | At Risk             | 2,312,250      | 289,031      | 31           | 22,820            |
 | Lost/Inactive       | 6,148,617      | 558,965      | 80           | 61,298            |
 
+## 🔎 Key Insights
+- **Champions & Loyal Customers** → Most engaged and profitable customers.  
+- **Needs Attention & About to Sleep** → Customers at risk of churn, require re-engagement.  
+- **Lost/Inactive Customers** → Historically high spenders but need reactivation efforts.  
 
-🔑 Key Insights
+---
 
-Champions and Loyal Customers are the most engaged and profitable.
+## 🎯 Why RFM Segmentation?
+RFM (Recency, Frequency, Monetary) analysis helps businesses to:  
+- 🎯 **Target marketing campaigns** more effectively  
+- 🔄 **Improve customer retention** by identifying loyalty drivers  
+- 💰 **Maximize profitability** by focusing on high-value customers  
 
-Needs Attention and About to Sleep highlight customers at risk of churn.
+---
 
-Lost/Inactive customers historically contribute high revenue but require reactivation efforts.
+## 📌 Tools & Technologies
+- 🗄️ **Database:** MySQL  
+- 📊 **Visualization:** Power BI
+-  🐍 **Python:** Bulk data insertion, preprocessing, and automation
 
-RFM Segmentation enables businesses to:
+---
 
-🎯 Target marketing campaigns effectively
 
-🔄 Improve customer retention
 
-💰 Maximize profitability from high-value customers
 
-📌 Tools & Technologies
-
-Database: MySQL
-
-Visualization: Power BI
-
-Segmentation Method: RFM (Recency, Frequency, Monetary)
-
-📢 Conclusion
-
-RFM analysis is a powerful framework that helps businesses understand customer behavior, prioritize resources, and drive long-term growth.
 
