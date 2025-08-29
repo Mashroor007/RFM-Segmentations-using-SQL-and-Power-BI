@@ -22,4 +22,6 @@ The goal is to classify customers into meaningful segments and extract actionabl
 CREATE DATABASE RFM_SALES;
 USE RFM_SALES;
 
+SELECT * FROM sample_sales_data LIMIT 10;
+
 
