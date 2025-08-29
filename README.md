@@ -34,3 +34,10 @@ SELECT
     ) AS RECENCY
 FROM SAMPLE_SALES_DATA
 GROUP BY CUSTOMERNAME;
+
+
+| Customer Name  | CLV    | Frequency | Total Qty Ordered | Last Transaction Date | Recency (days) |
+| -------------- | ------ | --------- | ----------------- | --------------------- | -------------- |
+| Alpha Stores   | 15,000 | 12        | 240               | 2023-08-01            | 5              |
+| Beta Traders   | 8,500  | 7         | 125               | 2023-07-25            | 12             |
+| Gamma Supplies | 22,000 | 15        | 310               | 2023-07-30            | 7              |
