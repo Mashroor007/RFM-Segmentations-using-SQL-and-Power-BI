@@ -1,0 +1,9 @@
+Segment,Description,Action
+Champions,"Recent, frequent, and high spenders. Best customers.","Reward them, offer early access to new products, exclusive perks."
+Loyal Customers,"Frequent buyers, but not always the highest spenders.","Upsell/cross-sell, build loyalty programs, keep them engaged."
+Potential Loyalists,"Recently active, good frequency and spend but not at top level yet.","Offer personalized discounts, encourage repeat purchase, nurture relationship."
+Promising Customers,Recent customers with decent activity but not high yet.,"Provide onboarding offers, product recommendations, build engagement."
+Needs Attention,Somewhat recent but low frequency or low spend.,"Re-engage with targeted promotions, reminders, or educational content."
+At Risk,Used to be active but have not purchased recently.,"Win-back campaigns, surveys, strong discounts to bring them back."
+Lost/Inactive,Haven’t purchased in a long time and unlikely to return.,"Minimal marketing, consider cost-effective campaigns or remove from active list."
+About to Sleep,Low engagement and at risk of churning soon.,"Send reactivation offers, highlight popular products, prevent churn."
